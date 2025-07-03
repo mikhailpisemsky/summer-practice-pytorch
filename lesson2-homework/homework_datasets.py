@@ -61,87 +61,88 @@ class DataFromCSV(Dataset):
 
     def __getitem__(self, index):
         return self.X[index], self.y[index]
+
+if __name__ == "__main__":        
+    # 2.2 Эксперименты с различными датасетами
+    # Найдите csv датасеты для регрессии и бинарной классификации и, применяя наработки из предыдущей части задания, обучите линейную и логистическую регрессию
+
+    # Данные для регрессии: https://www.kaggle.com/datasets/abrambeyer/openintro-possum
+
+    # Создаём датасет и даталоадер
+    database_possum = DataFromCSV("data/possum-liner-regression.csv", target="age", categorical_features=["Pop", "sex"])
+    dataloader = DataLoader(database_possum, batch_size=32, shuffle=True)
+    print(f'Размер датасета: {len(database_possum)}')
+    print(f'Количество батчей: {len(dataloader)}')
+    # Создаём модель, функцию потерь и оптимизатор
+    model = LinearRegression(in_features=database_possum.X.shape[1])
+    criterion = nn.MSELoss()
+    optimizer = optim.SGD(model.parameters(), lr=0.1)
+
+    # Обучаем модель
+    epochs = 100
+    for epoch in range(1, epochs + 1):
+        total_loss = 0
+        for i, (batch_X, batch_y) in enumerate(dataloader):
+            optimizer.zero_grad()
+            y_pred = model(batch_X)
+            loss = criterion(y_pred, batch_y)
+            loss.backward()
+            optimizer.step()            
+            total_loss += loss.item()
+        avg_loss = total_loss / (i + 1)
+        if epoch % 10 == 0:
+            log_epoch(epoch, avg_loss)
+       
+       
+    # Сохраняем модель
+    torch.save(model.state_dict(), 'possum_linreg_torch.pth')
         
-# 2.2 Эксперименты с различными датасетами
-# Найдите csv датасеты для регрессии и бинарной классификации и, применяя наработки из предыдущей части задания, обучите линейную и логистическую регрессию
+    # Загружаем модель
+    new_model = LinearRegression(in_features=database_possum.X.shape[1])
+    new_model.load_state_dict(torch.load('possum_linreg_torch.pth'))
+    new_model.eval()
 
-# Данные для регрессии: https://www.kaggle.com/datasets/abrambeyer/openintro-possum
+    # Данные для классификации https://www.kaggle.com/datasets/yasserh/breast-cancer-dataset
 
-# Создаём датасет и даталоадер
-database_possum = DataFromCSV("data/possum-liner-regression.csv", target="age", categorical_features=["Pop", "sex"])
-dataloader = DataLoader(database_possum, batch_size=32, shuffle=True)
-print(f'Размер датасета: {len(database_possum)}')
-print(f'Количество батчей: {len(dataloader)}')
-# Создаём модель, функцию потерь и оптимизатор
-model = LinearRegression(in_features=database_possum.X.shape[1])
-criterion = nn.MSELoss()
-optimizer = optim.SGD(model.parameters(), lr=0.1)
+    # Создаём датасет и даталоадер
+    database_breast = DataFromCSV("data/breast-cancer-binary-classification.csv", target="diagnosis")
+    dataloader = DataLoader(database_breast, batch_size=32, shuffle=True)
+    print(f'Размер датасета: {len(database_breast)}')
+    print(f'Количество батчей: {len(dataloader)}')
+    # Создаём модель, функцию потерь и оптимизатор
+    model = LogisticRegression(in_features=database_breast.X.shape[1])
+    criterion = nn.BCEWithLogitsLoss()
+    optimizer = optim.SGD(model.parameters(), lr=0.1)
 
-# Обучаем модель
-epochs = 100
-for epoch in range(1, epochs + 1):
-    total_loss = 0
-    for i, (batch_X, batch_y) in enumerate(dataloader):
-        optimizer.zero_grad()
-        y_pred = model(batch_X)
-        loss = criterion(y_pred, batch_y)
-        loss.backward()
-        optimizer.step()            
-        total_loss += loss.item()
-    avg_loss = total_loss / (i + 1)
-    if epoch % 10 == 0:
-        log_epoch(epoch, avg_loss)
-   
-   
-# Сохраняем модель
-torch.save(model.state_dict(), 'possum_linreg_torch.pth')
-    
-# Загружаем модель
-new_model = LinearRegression(in_features=database_possum.X.shape[1])
-new_model.load_state_dict(torch.load('possum_linreg_torch.pth'))
-new_model.eval()
+    # Обучаем модель
+    epochs = 100
+    for epoch in range(1, epochs + 1):
+        total_loss = 0
+        total_acc = 0
 
-# Данные для классификации https://www.kaggle.com/datasets/yasserh/breast-cancer-dataset
+        for i, (batch_X, batch_y) in enumerate(dataloader):
+            batch_y = batch_y.view(-1)
+            optimizer.zero_grad()
+            logits = model(batch_X).squeeze(1)
+            loss = criterion(logits, batch_y)
+            loss.backward()
+            optimizer.step()
 
-# Создаём датасет и даталоадер
-database_breast = DataFromCSV("data/breast-cancer-binary-classification.csv", target="diagnosis")
-dataloader = DataLoader(database_breast, batch_size=32, shuffle=True)
-print(f'Размер датасета: {len(database_breast)}')
-print(f'Количество батчей: {len(dataloader)}')
-# Создаём модель, функцию потерь и оптимизатор
-model = LogisticRegression(in_features=database_breast.X.shape[1])
-criterion = nn.BCEWithLogitsLoss()
-optimizer = optim.SGD(model.parameters(), lr=0.1)
+            # Вычисляем accuracy
+            y_pred = torch.sigmoid(logits)
+            acc = accuracy(y_pred, batch_y)
+            total_loss += loss.item()
+            total_acc += acc
 
-# Обучаем модель
-epochs = 100
-for epoch in range(1, epochs + 1):
-    total_loss = 0
-    total_acc = 0
-
-    for i, (batch_X, batch_y) in enumerate(dataloader):
-        batch_y = batch_y.view(-1)
-        optimizer.zero_grad()
-        logits = model(batch_X).squeeze(1)
-        loss = criterion(logits, batch_y)
-        loss.backward()
-        optimizer.step()
-
-        # Вычисляем accuracy
-        y_pred = torch.sigmoid(logits)
-        acc = accuracy(y_pred, batch_y)
-        total_loss += loss.item()
-        total_acc += acc
-
-    avg_loss = total_loss / (i + 1)
-    avg_acc = total_acc / (i + 1)
-    if epoch % 10 == 0:
-        log_epoch(epoch, avg_loss, acc=avg_acc)
-    
-# Сохраняем модель
-torch.save(model.state_dict(), 'breast_logreg_torch.pth')
-    
-# Загружаем модель
-new_model = LogisticRegression(in_features=database_breast.X.shape[1])
-new_model.load_state_dict(torch.load('breast_logreg_torch.pth'))
-new_model.eval()
+        avg_loss = total_loss / (i + 1)
+        avg_acc = total_acc / (i + 1)
+        if epoch % 10 == 0:
+            log_epoch(epoch, avg_loss, acc=avg_acc)
+        
+    # Сохраняем модель
+    torch.save(model.state_dict(), 'breast_logreg_torch.pth')
+        
+    # Загружаем модель
+    new_model = LogisticRegression(in_features=database_breast.X.shape[1])
+    new_model.load_state_dict(torch.load('breast_logreg_torch.pth'))
+    new_model.eval()
