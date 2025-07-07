@@ -13,18 +13,23 @@
 ```
 
 ![FCNModelLearningCurveOnMNIST.png](/lesson4-homework/plots/FCNModelLearningCurveOnMNIST.png)
+
 *Рисунок 1. Кривая обучения для FCN*
 
 ![SimplieCNNModelLearningCurveOnMNIST.png](/lesson4-homework/plots/SimplieCNNModelLearningCurveOnMNIST.png)
+
 *Рисунок 2. Кривая обучения для Simplie СNN*
 
 ![ResidualCNNModelLearningCurveOnMNIST.png](/lesson4-homework/plots/ResidualCNNModelLearningCurveOnMNIST.png)
+
 *Рисунок 3. Кривая обучения для Residual CNN*
 
 ![CompareFCNAndSimplieCNNOnTest.png](/lesson4-homework/plots/CompareFCNAndSimplieCNNOnTest.png)
+
 *Рисунок 4. Сравнение кривых обучения для FCN и Simplie CNN*
 
 ![CompareFCNAndResidualCNNOnTest.png](/lesson4-homework/plots/CompareFCNAndResidualCNNOnTest.png)
+
 *Рисунок 5. Сравнение кривых обучения для FCN и Residual CNN*
 
 
@@ -39,21 +44,27 @@
 ```
 
 ![FCNModelLearningCurveOnCIFAR-10.png](/lesson4-homework/plots/FCNModelLearningCurveOnCIFAR-10.png)
+
 *Рисунок 6. Кривая обучения для FCN*
 
 ![ResidualCNNModelLearningCurveOnCIFAR-10.png](/lesson4-homework/plots/ResidualCNNModelLearningCurveOnCIFAR-10.png)
+
 *Рисунок 7. Кривая обучения для Residual CNN*
 
 ![/RegularizedResidualCNNModelLearningCurveOnCIFAR-10.png](/lesson4-homework/plots/RegularizedResidualCNNModelLearningCurveOnCIFAR-10.png)
+
 *Рисунок 8. Кривая обучения для Residual CNN*
 
 **Вывод:** Модель с регуляризацией не переобучается, в отличие от FCN и Residual CNN.
 
 ![ConfusionMatrixForFCNOnCIFAR-10.png](/lesson4-homework/plots/ConfusionMatrixForFCNOnCIFAR-10.png)
+
 *Рисунок 9. Confusion matrix для FCN*
 
 ![ConfusionMatrixForResidualCNNOnCIFAR-10.png](/lesson4-homework/plots/ConfusionMatrixForResidualCNNOnCIFAR-10.png)
+
 *Рисунок 10. Confusion matrix для Residual CNN*
 
 ![ConfusionMatrixForRegularizedResidualCNNOnCIFAR-10.png](/lesson4-homework/plots/ConfusionMatrixForRegularizedResidualCNNOnCIFAR-10.png)
+
 *Рисунок 11. Confusion matrix для Regularized Residual CNN*
