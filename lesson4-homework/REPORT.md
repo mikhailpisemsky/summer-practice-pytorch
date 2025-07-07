@@ -68,3 +68,48 @@
 ![ConfusionMatrixForRegularizedResidualCNNOnCIFAR-10.png](/lesson4-homework/plots/ConfusionMatrixForRegularizedResidualCNNOnCIFAR-10.png)
 
 *Рисунок 11. Confusion matrix для Regularized Residual CNN*
+
+## Задание 2: Анализ архитектур CNN (30 баллов)
+
+### 2.1 Влияние размера ядра свертки (15 баллов)
+
+*Таблица 3. Сравнение производительности моделей на датасете CIFAR-10:*
+
+| №  |               model                   | parameters | test loss |  train loss | test accuracy | train accuracy |  time (c) |
+|----|---------------------------------------|------------|-----------|-------------|---------------|----------------|-----------|
+| 1  |    CNN model with kernel_size=3x3     |   161450   |  0.5521   |    0.2682   |    0.9035     |    0.9035      |  385.420  |
+| 2  |    CNN model with kernel_size=5x5     |   161450   |  0.5939   |    0.2791   |    0.8089     |    0.9017      |  395.982  |     
+| 3  |    CNN model with kernel_size=7x7     |   202410   |  0.6282   |    0.2776   |    0.8067     |    0.9016      |  436.560  |
+| 4  | CNN model with kernel_size=(1x1+3x3)  |   142154   |  0.6413   |    0.2997   |    0.8038     |    0.8925      |  378.796  |
+
+![CNNModelWithKernelSize3x3LearningCurveOnCIFAR-10.png](/lesson4-homework/plots/CNNModelWithKernelSize3x3LearningCurveOnCIFAR-10.png)
+
+*Рисунок 12. Кривая обучения для CNN model with kernel_size=3x3*
+
+![CNNModelWithKernelSize5x5LearningCurveOnCIFAR-10.png](/lesson4-homework/plots/CNNModelWithKernelSize5x5LearningCurveOnCIFAR-10.png)
+
+*Рисунок 13. Кривая обучения для CNN model with kernel_size=5x5*
+
+![CNNModelWithKernelSize7x7LearningCurveOnCIFAR-10.png](/lesson4-homework/plots/CNNModelWithKernelSize7x7LearningCurveOnCIFAR-10.png)
+
+*Рисунок 14. Кривая обучения для CNN model with kernel_size=7x7*
+
+![CNNModelWithKernelSize1x13x3LearningCurveOnCIFAR-10.png](/lesson4-homework/plots/CNNModelWithKernelSize1x13x3LearningCurveOnCIFAR-10.png)
+
+*Рисунок 15. Кривая обучения для CNN model with kernel_size=(1x1+3x3)*
+
+![ConfusionMatrixForCNNWithKernelSize3x3OnCIFAR-10.png](/lesson4-homework/plots/ConfusionMatrixForCNNWithKernelSize3x3OnCIFAR-10.png)
+
+*Рисунок 16. Confusion matrix для CNN model with kernel_size=3x3*
+
+![ConfusionMatrixForCNNWithKernelSize5x5OnCIFAR-10.png](/lesson4-homework/plots/ConfusionMatrixForCNNWithKernelSize5x5OnCIFAR-10.png)
+
+*Рисунок 17. Confusion matrix для CNN model with kernel_size=5x5*
+
+![ConfusionMatrixForCNNWithKernelSize7x7OnCIFAR-10.png](/lesson4-homework/plots/ConfusionMatrixForCNNWithKernelSize7x7OnCIFAR-10.png)
+
+*Рисунок 18. Confusion matrix для CNN model with kernel_size=7x7*
+
+![ConfusionMatrixForCNNWithKernelSize1x13x3OnCIFAR-10.png](/lesson4-homework/plots/ConfusionMatrixForCNNWithKernelSize1x13x3OnCIFAR-10.png)
+
+*Рисунок 19. Confusion matrix для CNN model with kernel_size=(1x1+3x3)*

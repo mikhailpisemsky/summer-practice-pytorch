@@ -123,3 +123,70 @@ class RegularizedCNNWithResidual(nn.Module):
         x = x.view(x.size(0), -1)
         x = self.fc(x)
         return x
+    
+class ResidualBlockWithKernelSize(nn.Module):
+    def __init__(self, in_channels, kernel_size, out_channels, stride=1, combination=False):
+        super().__init__()
+        self.combination = combination
+
+        if combination:
+            self.conv1 = nn.Sequential(
+                nn.Conv2d(in_channels, out_channels//2, 1, stride, 0, bias=False),
+                nn.BatchNorm2d(out_channels//2),
+                nn.ReLU(),
+                nn.Conv2d(out_channels//2, out_channels, 3, 1, 1, bias=False)
+            )
+        else:
+            padding = kernel_size // 2
+            self.conv1 = nn.Conv2d(in_channels, out_channels, kernel_size, stride, padding, bias=False)
+        
+        self.bn1 = nn.BatchNorm2d(out_channels)
+        self.conv2 = nn.Conv2d(out_channels, out_channels, 3, 1, 1, bias=False)
+        self.bn2 = nn.BatchNorm2d(out_channels)
+        
+        self.shortcut = nn.Sequential()
+        if stride != 1 or in_channels != out_channels:
+            self.shortcut = nn.Sequential(
+                nn.Conv2d(in_channels, out_channels, 1, stride, bias=False),
+                nn.BatchNorm2d(out_channels)
+            )
+
+    def forward(self, x):
+        out = F.relu(self.bn1(self.conv1(x)))
+        out = self.bn2(self.conv2(out))
+        out += self.shortcut(x)
+        out = F.relu(out)
+        return out
+
+class CNNWithKernelSize(nn.Module):
+    def __init__(self, kernel_size=3, input_channels=3, num_classes=10, combination=False):  # Изменили input_channels на 3
+        super().__init__()
+
+        self.conv1 = nn.Conv2d(input_channels, 32, 3, 1, 1, bias=False)
+        self.bn1 = nn.BatchNorm2d(32)
+
+        self.res1 = ResidualBlockWithKernelSize(32, kernel_size, 32, combination=combination)
+        self.res2 = ResidualBlockWithKernelSize(32, 3, 64, 2, combination=combination)
+        self.res3 = ResidualBlockWithKernelSize(64, 3, 64, combination=combination)
+        
+        self.pool = nn.AdaptiveAvgPool2d((4, 4))
+        self.fc = nn.Linear(64 * 4 * 4, num_classes)
+        self.dropout = nn.Dropout(0.25)
+
+        for m in self.modules():
+            if isinstance(m, nn.Conv2d):
+                nn.init.kaiming_normal_(m.weight, mode='fan_out', nonlinearity='relu')
+            elif isinstance(m, nn.BatchNorm2d):
+                nn.init.constant_(m.weight, 1)
+                nn.init.constant_(m.bias, 0)
+
+    def forward(self, x):
+        x = F.relu(self.bn1(self.conv1(x)))
+        x = self.res1(x)
+        x = self.res2(x)
+        x = self.res3(x)
+        x = self.pool(x)
+        x = x.view(x.size(0), -1)
+        x = self.dropout(x)
+        x = self.fc(x)
+        return x

@@ -41,3 +41,31 @@ def plot_confusion_matrix(model, test_loader, class_names):
     plt.ylabel('Действительность')
     plt.title('Confusion Matrix')
     plt.show()
+
+def plot_first_layer_activations(model, test_loader, num_images=3):
+    model.eval()
+    device = next(model.parameters()).device
+    data_iter = iter(test_loader)
+    images, _ = next(data_iter)
+    images = images.to(device)
+
+    first_conv = None
+    for module in model.modules():
+        if isinstance(module, nn.Conv2d):
+            first_conv = module
+            break
+    if first_conv is None:
+        raise ValueError("Не найден сверточный слой для визуализации.")
+
+    with torch.no_grad():
+        activations = first_conv(images[:num_images])
+    activations = activations.cpu()
+
+    for idx in range(num_images):
+        plt.figure(figsize=(12, 2))
+        for i in range(min(8, activations.shape[1])):  
+            plt.subplot(1, 8, i+1)
+            plt.imshow(activations[idx, i].numpy(), cmap='viridis')
+            plt.axis('off')
+        plt.suptitle(f'Активации для изображения {idx + 1}')
+        plt.show()
