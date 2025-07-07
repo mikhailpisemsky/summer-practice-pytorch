@@ -52,8 +52,8 @@
 ![ConfusionMatrixForFCNOnCIFAR-10.png](/lesson4-homework/plots/ConfusionMatrixForFCNOnCIFAR-10.png)
 *Рисунок 9. Confusion matrix для FCN*
 
-![/plots/ConfusionMatrixForResidualCNNOnCIFAR-10.png](/plots/ConfusionMatrixForResidualCNNOnCIFAR-10.png)
+![ConfusionMatrixForResidualCNNOnCIFAR-10.png](/lesson4-homework/plots/ConfusionMatrixForResidualCNNOnCIFAR-10.png)
 *Рисунок 10. Confusion matrix для Residual CNN*
 
-![/plots/ConfusionMatrixForRegularizedResidualCNNOnCIFAR-10.png](/plots/ConfusionMatrixForRegularizedResidualCNNOnCIFAR-10.png)
+![ConfusionMatrixForRegularizedResidualCNNOnCIFAR-10.png](/lesson4-homework/plots/ConfusionMatrixForRegularizedResidualCNNOnCIFAR-10.png)
 *Рисунок 11. Confusion matrix для Regularized Residual CNN*
