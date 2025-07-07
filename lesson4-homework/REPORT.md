@@ -113,3 +113,19 @@
 ![ConfusionMatrixForCNNWithKernelSize1x13x3OnCIFAR-10.png](/lesson4-homework/plots/ConfusionMatrixForCNNWithKernelSize1x13x3OnCIFAR-10.png)
 
 *Рисунок 19. Confusion matrix для CNN model with kernel_size=(1x1+3x3)*
+
+![FirstLayerActivationForCNNWithKernelSize3x3.png](/lesson4-homework/plots/FirstLayerActivationForCNNWithKernelSize3x3.png)
+
+*Рисунок 20. Визуализация активации первого слоя для CNN model with kernel_size=3x3*
+
+![FirstLayerActivationForCNNWithKernelSize5x5.png](/lesson4-homework/plots/FirstLayerActivationForCNNWithKernelSize5x5.png)
+
+*Рисунок 21. Визуализация активации первого слоя для CNN model with kernel_size=5x5*
+
+![FirstLayerActivationForCNNWithKernelSize7x7.png](/lesson4-homework/plots/FirstLayerActivationForCNNWithKernelSize7x7.png)
+
+*Рисунок 22. Визуализация активации первого слоя для CNN model with kernel_size=7x7*
+
+![FirstLayerActivationForCNNWithKernelSize1x13x3.png](/lesson4-homework/plots/FirstLayerActivationForCNNWithKernelSize1x13x3.png)
+
+*Рисунок 23. Визуализация активации первого слоя для CNN model with kernel_size=(1x1+3x3)*
