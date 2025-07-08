@@ -143,32 +143,32 @@
 
 ![CNNModelWith2LayersLearningCurveOcCIFAR-10.png](/lesson4-homework/plots/CNNModelWith2LayersLearningCurveOcCIFAR-10.png)
 
-*Рисунок 24. Кривая обучения для CNN model with 2 layers
+*Рисунок 24. Кривая обучения для CNN model with 2 layers*
 
 ![CNNModelWith4LayersLearningCurveOcCIFAR-10.png](/lesson4-homework/plots/CNNModelWith4LayersLearningCurveOcCIFAR-10.png)
 
-*Рисунок 25. Кривая обучения для CNN model with 4 layers
+*Рисунок 25. Кривая обучения для CNN model with 4 layers*
 
 ![CNNModelWith6LayersLearningCurveOcCIFAR-10.png](/lesson4-homework/plots/CNNModelWith6LayersLearningCurveOcCIFAR-10.png)
 
-*Рисунок 26. Кривая обучения для CNN model with 6 layers
+*Рисунок 26. Кривая обучения для CNN model with 6 layers*
 
 ![CNNModelWithResidualLearningCurveOnCIFAR-10.png](/lesson4-homework/plots/CNNModelWithResidualLearningCurveOnCIFAR-10.png)
 
-*Рисунок 27. Кривая обучения для CNN model with residual
+*Рисунок 27. Кривая обучения для CNN model with residual*
 
 ![FeatureMapsForCNNModelWith2LayersOnCIFAR-10.png](/lesson4-homework/plots/FeatureMapsForCNNModelWith2LayersOnCIFAR-10.png)
 
-*Рисунок 28. Feature maps for CNN model with 2 layers on CIFAR-10
+*Рисунок 28. Feature maps for CNN model with 2 layers on CIFAR-10*
 
 ![FeatureMapsForCNNModelWith4LayersOnCIFAR-10.png](/lesson4-homework/plots/FeatureMapsForCNNModelWith4LayersOnCIFAR-10.png)
 
-*Рисунок 29. Feature maps for CNN model with 4 layers on CIFAR-10
+*Рисунок 29. Feature maps for CNN model with 4 layers on CIFAR-10*
 
 ![FeatureMapsForCNNModelWith6LayersOnCIFAR-10.png](/lesson4-homework/plots/FeatureMapsForCNNModelWith6LayersOnCIFAR-10.png)
 
-*Рисунок 30. Feature maps for CNN model with 6 layers on CIFAR-10
+*Рисунок 30. Feature maps for CNN model with 6 layers on CIFAR-10*
 
 ![FeatureMapsForCNNModelWithResidualOnCIFAR-10.png](/lesson4-homework/plots/FeatureMapsForCNNModelWithResidualOnCIFAR-10.png)
 
-*Рисунок 31. Feature maps for CNN model with residual on CIFAR-10
+*Рисунок 31. Feature maps for CNN model with residual on CIFAR-10*
