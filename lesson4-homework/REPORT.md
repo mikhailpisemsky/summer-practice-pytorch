@@ -136,10 +136,10 @@
 
 | №  |               model            | parameters | test loss |  train loss | test accuracy | train accuracy |  time (c) |
 |----|--------------------------------|------------|-----------|-------------|---------------|----------------|-----------|
-| 1  |    CNN model with 2 layers     |   545098   |  1.0655   |    0.7108   |    0.9035     |    0.8717      | 1586.365  |
-| 2  |    CNN model with 4 layers     |  1439818   |  1.0928   |    0.1045   |    0.7749     |    0.9632      | 4574.467  |     
-| 3  |    CNN model with 6 layers     |   814122   |  1.2545   |    0.1470   |    0.7445     |    0.9479      | 3790.232  |
-| 4  |    CNN model with residual     |   327882   |  0.8420   |    0.0487   |    0.8011     |    0.9846      | 7464.218  |
+| 1  |    CNN model with 2 layers     |   545098   |  1.1359   |    0.2986   |    0.7227     |    0.8905      |  258.607  |
+| 2  |    CNN model with 4 layers     |  1439818   |  1.0578   |    0.1069   |    0.7918     |    0.9626      |  299.096  |     
+| 3  |    CNN model with 6 layers     |   814122   |  1.1912   |    0.1405   |    0.7576     |    0.9506      |  299.874  |
+| 4  |    CNN model with residual     |   327882   |  0.8364   |    0.0504   |    0.8147     |    0.9836      |  370.106  |
 
 ![CNNModelWith2LayersLearningCurveOcCIFAR-10.png](/lesson4-homework/plots/CNNModelWith2LayersLearningCurveOcCIFAR-10.png)
 
@@ -172,3 +172,54 @@
 ![FeatureMapsForCNNModelWithResidualOnCIFAR-10.png](/lesson4-homework/plots/FeatureMapsForCNNModelWithResidualOnCIFAR-10.png)
 
 *Рисунок 31. Feature maps for CNN model with residual on CIFAR-10*
+
+## Задание 3: Кастомные слои и эксперименты (30 баллов)
+
+### 3.1 Реализация кастомных слоев (15 баллов)
+
+*Таблица 5. Сравнение производительности моделей на датасете CIFAR-10:*
+
+| №  |               model            | parameters | test loss |  train loss | test accuracy | train accuracy |  time (c) |
+|----|--------------------------------|------------|-----------|-------------|---------------|----------------|-----------|
+| 1  |    CNN with custom layers      |   268650   |  1.5861   |    0.1838   |    0.6730     |    0.9345      |  254.547  |
+| 2  |      CNN with attention        |   268810   |  1.2919   |    0.2197   |    0.7069     |    0.9230      |  264.053  |     
+| 3  |   CNN with custom activation   |   268810   |  2.1056   |    0.0519   |    0.6774     |    0.9838      |  261.071  |
+| 4  |    CNN with custom pooling     |   268650   |  1.6854   |    0.1489   |    0.6878     |    0.9471      |  291.747  |
+
+![CNNWithCustomLayersLearningCurveOnCIFAR-10.png](/lesson4-homework/plots/CNNWithCustomLayersLearningCurveOnCIFAR-10.png)
+
+*Рисунок 32. Кривая обучения для CNN with custom layers*
+
+![CNNWithAttentionLearningCurveOnCIFAR-10.png](/lesson4-homework/plots/CNNWithAttentionLearningCurveOnCIFAR-10.png)
+
+*Рисунок 33. Кривая обучения для CNN with attention*
+
+![CNNWithCustomActivationLearningCurveOnCIFAR-10.png](/lesson4-homework/plots/CNNWithCustomActivationLearningCurveOnCIFAR-10.png)
+
+*Рисунок 34. Кривая обучения для CNN with custom activation*
+
+![CNNWithCustomPoolingLearningCurveOnCIFAR-10.png](/lesson4-homework/plots/CNNWithCustomPoolingLearningCurveOnCIFAR-10.png)
+
+*Рисунок 35. Кривая обучения для CNN with custom pooling*
+
+### 3.2 Эксперименты с Residual блоками (15 баллов)
+
+*Таблица 6. Сравнение производительности моделей на датасете CIFAR-10:*
+
+| №  |               model            | parameters | test loss |  train loss | test accuracy | train accuracy |  time (c) |
+|----|--------------------------------|------------|-----------|-------------|---------------|----------------|-----------|
+| 1  |    CNN with base Residual      |   161482   |  0.6969   |    0.1434   |    0.8148     |    0.9500      |  379.705  |
+| 2  |  CNN with Bottleneck Residual  |  23520842  |  0.5511   |    0.1952   |    0.8341     |    0.9319      | 1890.913  |     
+| 3  |    CNN with Wide Residual      |  2749786   |  0.5300   |    0.1940   |    0.8462     |    0.9321      |  454.309  |
+
+![CNNWithBaseResidualLearningCurveOnCIFAR-10.png](/lesson4-homework/plots/CNNWithBaseResidualLearningCurveOnCIFAR-10.png)
+
+*Рисунок 36. Кривая обучения для CNN with base Residual*
+
+![CNNWithBottleneckResidualLearningCurveOnCIFAR-10.png](/lesson4-homework/plots/CNNWithBottleneckResidualLearningCurveOnCIFAR-10.png)
+
+*Рисунок 37. Кривая обучения для CNN with Bottleneck Residual*
+
+![CNNWithWideResidualLearningCurveOnCIFAR-10.png](/lesson4-homework/plots/CNNWithWideResidualLearningCurveOnCIFAR-10.png)
+
+*Рисунок 38. Кривая обучения для CNN with Wide Residual*
