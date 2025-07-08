@@ -3,10 +3,11 @@
 import torch
 import time
 from utils.training_utils import train_model
-from cnn_models import CNNWithKernelSize
 from utils.datasets_utils import get_cifar_loaders
 from utils.comparsion_utils import count_parameters
 from utils.visualization_utils import plot_training_history, plot_confusion_matrix, plot_first_layer_activations
+from models.cnn_models import CNN2ConvLayers, CNN4ConvLayers, CNN6ConvLayers, CNNWithResidualLayers, CNNWithKernelSize
+
 
 # 2.1 Влияние размера ядра свертки (15 баллов)
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
@@ -122,12 +123,92 @@ plot_first_layer_activations(cnn_model_1x13x3, test_loader, num_images=1)
 # 2.2 Влияние глубины CNN (15 баллов)
 # Исследуйте влияние глубины CNN:
 # - Неглубокая CNN (2 conv слоя)
+cnn_model_2_layers = CNN2ConvLayers().to(device)
+print(f"CNN model with 2 layers parameters: {count_parameters(cnn_model_2_layers)}")
+
 # - Средняя CNN (4 conv слоя)
+cnn_model_4_layers = CNN4ConvLayers().to(device)
+print(f"CNN model with 4 layers parameters: {count_parameters(cnn_model_4_layers)}")
+
 # - Глубокая CNN (6+ conv слоев)
+cnn_model_6_layers = CNN6ConvLayers().to(device)
+print(f"CNN model with 6 layers parameters: {count_parameters(cnn_model_6_layers)}")
+
 # - CNN с Residual связями
+cnn_model_residual = CNNWithResidualLayers().to(device)
+print(f"CNN model with Residual parameters: {count_parameters(cnn_model_residual)}")
 
 # Для каждого варианта:
 # - Сравните точность и время обучения
 # - Проанализируйте vanishing/exploding gradients
 # - Исследуйте эффективность Residual связей
 # - Визуализируйте feature maps
+
+print("Training CNN model with 2 layers...")
+
+time_start = time.time()
+model_2_layers_history = train_model(cnn_model_2_layers, train_loader, test_loader, epochs=15, device=str(device))
+model_2_layers_time = time.time() - time_start
+plot_training_history(model_2_layers_history)
+
+print(f"CNN model with 2 layers losses: train: {model_2_layers_history['train_losses']}, test: {model_2_layers_history['test_losses']}.")
+print(f"CNN model with 2 layers accuracy: train: {model_2_layers_history['train_accs']}, test: {model_2_layers_history['test_accs']}.")
+print(f"CNN model with 2 layers train time: {model_2_layers_time}")
+
+# Сохраняем модель
+torch.save(cnn_model_2_layers.state_dict(), 'cnn_model_2_layers.pth')
+
+print("Training CNN model with 4 layers...")
+
+time_start = time.time()
+model_4_layers_history = train_model(cnn_model_4_layers, train_loader, test_loader, epochs=15, device=str(device))
+model_4_layers_time = time.time() - time_start
+plot_training_history(model_4_layers_history)
+
+print(f"CNN model with 4 layers losses: train: {model_4_layers_history['train_losses']}, test: {model_4_layers_history['test_losses']}.")
+print(f"CNN model with 4 layers accuracy: train: {model_4_layers_history['train_accs']}, test: {model_4_layers_history['test_accs']}.")
+print(f"CNN model with 4 layers train time: {model_4_layers_time}")
+
+# Сохраняем модель
+torch.save(cnn_model_4_layers.state_dict(), 'cnn_model_4_layers.pth')
+
+print("Training CNN model with 6 layers...")
+
+time_start = time.time()
+model_6_layers_history = train_model(cnn_model_6_layers, train_loader, test_loader, epochs=15, device=str(device))
+model_6_layers_time = time.time() - time_start
+plot_training_history(model_6_layers_history)
+
+print(f"CNN model with 6 layers losses: train: {model_6_layers_history['train_losses']}, test: {model_6_layers_history['test_losses']}.")
+print(f"CNN model with 6 layers accuracy: train: {model_6_layers_history['train_accs']}, test: {model_6_layers_history['test_accs']}.")
+print(f"CNN model with 6 layers train time: {model_6_layers_time}")
+
+# Сохраняем модель
+torch.save(cnn_model_6_layers.state_dict(), 'cnn_model_6_layers.pth')
+
+print("Training CNN model with residual...")
+
+time_start = time.time()
+model_residual_history = train_model(cnn_model_residual, train_loader, test_loader, epochs=15, device=str(device))
+model_residual_layers_time = time.time() - time_start
+plot_training_history(model_residual_history)
+
+print(f"CNN model with residual losses: train: {model_residual_history['train_losses']}, test: {model_residual_history['test_losses']}.")
+print(f"CNN model with residual accuracy: train: {model_residual_history['train_accs']}, test: {model_residual_history['test_accs']}.")
+print(f"CNN model with residual train time: {model_residual_layers_time}")
+
+# Сохраняем модель
+torch.save(cnn_model_residual.state_dict(), 'cnn_model_residual.pth')
+
+# Визуализируйте feature maps
+print(f"Feature maps for CNN model with 2 layers on CIFAR-10")
+plot_first_layer_activations(cnn_model_2_layers, test_loader, num_images=1)
+
+print(f"Feature maps for CNN model with 4 layers on CIFAR-10")
+plot_first_layer_activations(cnn_model_4_layers, test_loader, num_images=1)
+
+print(f"Feature maps for CNN model with 6 layers on CIFAR-10")
+plot_first_layer_activations(cnn_model_6_layers, test_loader, num_images=1)
+
+print(f"Feature maps for CNN model with residual on CIFAR-10")
+plot_first_layer_activations(cnn_model_residual, test_loader, num_images=1)
